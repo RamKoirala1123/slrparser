@@ -1,0 +1,382 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+}
+
+nav {
+    display: flex;
+    width: 100vw;
+    height: 56px;
+    align-items: center;
+    justify-content: space-around;
+    position: fixed;
+    z-index: 10;
+    background-color: white;
+    transition: box-shadow 0.3s ease;
+    box-shadow: 0 0 20px rgba(48, 46, 77, .5);
+}
+
+
+.heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-style: oblique;
+    font-weight: bolder;
+    background: linear-gradient(to right, #121FCF 0%, #CF1512 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.textcss {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: bolder;
+    background-color: black;
+    background-clip: text;
+    color: transparent;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: space-around;
+    width: 30%;
+}
+
+.nav-links li {
+    list-style: none;
+}
+
+.nav-links li a {
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    letter-spacing: 2px;
+    border-radius: 10px;
+    padding: 12px 16px;
+}
+
+.nav-links li a:hover:not(.active) {
+    background-color: rgb(142, 163, 142);
+}
+
+.nav-links li a.active {
+    background-color: rgb(103, 222, 103);
+}
+
+#check {
+    display: none;
+}
+
+.checkbtn {
+    font-size: 14px;
+    color: white;
+    display: none;
+}
+
+.page {
+    width: 90vw;
+    margin: 0 auto;
+    position: relative;
+    padding-top: 60px;
+}
+
+.page .rules-section,
+.page .history-section,
+.page .procedures-section,
+.page .whois-section {
+    min-height: 100vh;
+    align-items: start;
+
+}
+
+.page .container {
+    padding-top: 90px;
+}
+
+
+.home-section {
+    display: flex;
+    flex-direction: row;
+    gap:40px;
+    /* padding-top: 90px; */
+}
+
+.home-section img {
+    height: 400px;
+    width: 500px;
+    margin-top: 15%;
+}
+
+.info {
+    margin: 30px;
+    margin-top: 50px;
+    background-color: beige;
+    border-radius: 50px;
+    padding: 30px;
+}
+
+.info h1 {
+    font-size: 40px;
+    color: #222;
+    line-height: 3.4rem;
+}
+
+.info h1 span {
+    color: rgb(241, 69, 69);
+}
+
+.info p {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    line-height: 1.7rem;
+    /* letter-spacing: 1px; */
+}
+
+.info .btn {
+    display: inline-block;
+    text-decoration: none;
+    padding: 14px 40px;
+    font-size: 20px;
+    border-radius: 30px;
+    border-top-right-radius: 0px;
+    color: white;
+    background-color:
+        rgb(103, 222, 103);
+    transition: 0.3s;
+}
+
+.info .btn:hover {
+    border-top-right-radius: 30px;
+}
+
+.btn {
+    display: inline-block;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 20px;
+    font-size: 16px;
+    border-radius: 20px;
+    border-top-right-radius: 0px;
+    color: white;
+    background-color:rgb(103, 222, 103);
+    transition: 0.3s;
+    /* box-shadow: 0px 2px 14px #000; */
+}
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.btn:hover {
+    border-top-right-radius: 20px;
+    outline: none;
+}
+
+#grammartext {
+    width: 500px;
+    background-color: #FFF;
+    color: #222;
+    font-family: Courier, monospace;
+    font-weight: normal;
+    font-size: 20px;
+    resize: none;
+    line-height: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0px 2px 8px #a09d9d;
+}
+
+#grammartext:focus{
+    outline: none;
+}
+
+
+
+
+.page .container>h1 {
+    font-size: 40px;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.page .container>h1::before,
+.page .container>h1::after {
+    background-color: red;
+    content: "";
+    height: 4px;
+    left: 0;
+    position: absolute;
+    top: 100%;
+}
+
+.page .container>h1::before {
+    width: 50px;
+}
+
+.page .container>h1::after {
+    width: 25px;
+    margin-top: 10px;
+}
+
+.footer {
+    text-align: center;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: teal;
+    color: white;
+}
+
+.social-icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 10px;
+    font-size: 18px;
+}
+
+.rules-li li {
+    margin-bottom: 20px;
+    font-size: 20px;
+    padding-left: 20px;
+    /* line-height: 2rem; */
+    line-height: 2.5rem;
+}
+
+.rules-li {
+    margin-left: 60px;
+    margin-top: 50px;
+}
+
+.rules-li li span {
+    font-weight: bold;
+}
+
+.whois-container .card {
+    width: 30%;
+    margin-top: 30px;
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    gap: 5px;
+
+    font-size: 17px;
+    box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.3);
+    align-items: center;
+}
+
+.whois-container .card h1 {
+    font-family: 'Gloria Hallelujah';
+    color: rgb(221, 133, 133);
+    font-size: 28px;
+}
+
+.whois-container {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+}
+
+.whois-container .card p {
+    line-height: 2rem;
+}
+
+.procedure-container {
+    padding-top: 30px;
+    padding-left: 40px;
+}
+
+.procedure-container .procedures {
+    padding-bottom: 20px;
+    line-height: 2.5rem;
+    text-align: justify;
+}
+
+.procedure-container .procedures p {
+    font-size: 20px;
+}
+
+.card img {
+    height: 40%;
+    width: 70%;
+    padding: 10px;
+}
+
+
+
+table td{
+    background-color: #FFF;
+    color: #222;
+    font-family: Courier, monospace;
+    font-weight: normal;
+    font-size: 14px;
+    resize: none;
+    line-height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+table th{
+    background-color: #FFF;
+    color: #222;
+    font-family: Courier, monospace;
+    font-weight: normal;
+    font-size: 14px;
+    font-weight: bold;
+    resize: none;
+    line-height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    letter-spacing: 1px;
+  }
+
+table{
+    border-collapse: collapse;
+}
+
+
+.textsmall {
+    font-size: 16px;
+    font-weight: bolder;
+    color: black;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.parsingtable{
+    width: 50%;
+}
+
+.parsingtable table{
+    width: 100%;
+}
+
+.buttons{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
