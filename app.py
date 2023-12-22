@@ -419,5 +419,5 @@ def parse():
     result = augmentgrammar([user_input])
     return render_template('index.html', grammar=user_input, result=result)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+#     app.run(debug=True)
