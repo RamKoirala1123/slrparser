@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <script src="https://kit.fontawesome.com/8b9a028f85.js" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -19,64 +20,82 @@
         </div>
         <ul class="nav-links">
             <li><a href="#home" class="active">Home </a></li>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
         </ul>
     </nav>
 
     <div class="page">
-        <div class="hero">
-
-            <section class="home-section" id="home">
-                <!-- <img src="assets/images/background.png" alt="Logo Image"> -->
-                <form action="/submit" method="post">
-                    <br>
-                    <br>
-                    <label for="grammartext" class="textcss">Grammar:</label>
-                    <textarea placeholder="Enter the grammar." id="grammartext" name="grammartext"
-                        rows="6">{{grammar_text}}</textarea>
-                    <div class="buttons">
-                        <input type="submit" value="Submit" class="btn">
-                        <button type="button" class="btn" onclick="addTextToTextarea()">Sample Grammar</button>
-                    </div>
-                    <br>
-                </form>
-
-
-                <div class="augmentedgrammar">
-                    <br>
-                    <br>
-                    <h3 class="textcss">Augmented Grammar</h3>
-                    <br>
-                    {% for item in augmentedgrammar %}
-
-                    <p>{{ item[0] }} -> {{ item[1][0] }} {% for symbol in item[1][1:] %}{{ symbol }} {% endfor %}</p>
-                    <br>
-
-                    {% endfor %}
+        <section class="home-section" id="home">
+            <!-- <img src="assets/images/background.png" alt="Logo Image"> -->
+            <form action="/submit" method="post" class="formss">
+                <br>
+                <br>
+                <label for="grammartext" class="textcss">Grammar:</label>
+                <textarea placeholder="Enter the grammar." id="grammartext" name="grammartext"
+                    rows="6">{{grammar_text}}</textarea>
+                <div class="buttons">
+                    <input type="submit" value="Submit" class="btn">
+                    <button type="button" class="btn" onclick="addTextToTextarea()">Sample Grammar</button>
                 </div>
+                <br>
+            </form>
 
-                <div class="first-follow">
-                    <br>
-                    <br>
-                    <h3 class="textcss">First Follow Table</h3>
-                    <br>
-                    <table border="1">
-                        <tr>
-                            <td class="textsmall">Non Terminals</td>
-                            <td class="textsmall">First</td>
-                            <td class="textsmall">Follow</td>
-                        </tr>
-                        {% for item in data %}
-                        <tr>
-                            <td>{{ item[0]}}</td>
-                            <td>{{  item[1]}}</td>
-                            <td>{{item[2]}}</td>
-                        </tr>
-                        {% endfor %}
-                    </table>
+            {% if not augmentedgrammar %}
+            <div class="how-to">
+                <br>
+                <br>
+                <h3 class="textcss">
+                    How to Add Grammar.
+                </h3>
+                <ol>
+                    <li>Write each production rule in seperated line.</li>
+                    <li>Seperate each token using whitespace.</li>
+                    <li>Add the real grammar not the augmented one.</li>
+                    <li>Use # for ε.</li>
+                    <li>You can see the sample grammar by clicking on the sample grammar button.</li>
+                </ol>
+            </div>
+            {% endif %}
 
+            {% if augmentedgrammar %}
+            <div class="augmentedgrammar">
+                <br>
+                <br>
+                <h3 class="textcss">Augmented Grammar</h3>
+                <br>
+                {% for item in augmentedgrammar %}
+
+                <p>{{ item[0] }} -> {{ item[1][0] }} {% for symbol in item[1][1:] %}{{ symbol }} {% endfor %}</p>
+                <br>
+
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if data %}
+            <div class="first-follow">
+                <br>
+                <br>
+                <h3 class="textcss">First Follow Table</h3>
+                <br>
+                <table border="1">
+                    <tr>
+                        <td class="textsmall">Non Terminals</td>
+                        <td class="textsmall">First</td>
+                        <td class="textsmall">Follow</td>
+                    </tr>
+                    {% for item in data %}
+                    <tr>
+                        <td>{{ item[0]}}</td>
+                        <td>{{ item[1]}}</td>
+                        <td>{{item[2]}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% endif %}
+
+
+                {% if terminal %}
                 <div class="parsingtable">
                     <br>
                     <br>
@@ -112,90 +131,14 @@
                     </table>
 
                 </div>
-
-        </div>
+                {% endif %}
 
 
 
         </section>
     </div>
-    <!-- <section class="rules-section" id="rules">
-        <div class="container">
-            <h1>Rules</h1>
-            <ol class="rules-li">
-                <li><span>No Hands:</span> The goalkeeper (goalie) is the only player on the field who can use their
-                    hands. All other players must use their feet, head, or chest to control the ball. If the player
-                    touches the ball, it’s considered a handball and a foul.</li>
-                <li><span>Throw-ins: </span>When the ball goes out of bounds on the sidelines, the team who didn’t
-                    touch it last gets to throw the ball back into play. </li>
-                <li><span>Goal kicks and corner kicks:</span> When the ball goes out of bounds behind the goal line
-                    (not resulting in a goal), the goalkeeper of the team who didn’t touch it last gets to kick the
-                    ball back into play. If the ball goes out of bounds on the sideline in front of the goal, the
-                    team who didn’t touch it last gets a corner kick.</li>
-                <li><span>Direct and indirect kicks: </span>Players can score on a direct kick, which is a kick that
-                    goes directly into the goal without another player touching it. An indirect kick is when another
-                    player must touch the ball before it can go into the goal.</li>
-                <li><span>No time limit for possession: </span>There is no time limit on how long a team can keep
-                    the ball.</li>
-                <li><span>The clock doesnot stop:</span> The game clock does not stop, even if the ball goes out of
-                    bounds or there is an injury.</li>
-                <li><span>Stoppage Time:</span>If the referee deems it necessary, he may add extra time at the end
-                    of each half. This is called stoppage time or injury time.</li>
-                <li><span>Offside Rule:</span>The offside rule is one of the most misunderstood rules in soccer. The
-                    basic idea is that a player cannot be in an advantageous position when the ball is played to
-                    them. Being in an offside position is not in itself an offense. An offside offense occurs when a
-                    player is in the opponent’s half of the field and closer to their goal than both the ball and
-                    the second-to-last opponent.
-                </li>
 
-            </ol>
-
-        </div>
-    </section>
-
-    <section class="procedures-section" id="procedures">
-        <div class="container">
-            <h1>Procedures</h1>
-            <div class="procedure-container">
-
-                <div class="procedures">
-                    <h2>Objective</h2>
-                    <p>The aim of football is to score more goals then your opponent in a 90 minute playing time
-                        frame. The match is split up into two halves of 45 minutes. After the first 45 minutes
-                        players will take a 15 minute rest period called half time. The second 45 minutes will
-                        resume and any time deemed fit to be added on by the referee (injury time) will be
-                        accordingly.</p>
-                </div>
-                <div class="procedures">
-                    <h2>Teams</h2>
-                    <p>Each team consists of 11 players. These are made up of one goalkeeper and ten outfield
-                        players. Each team will have a designated captain. There is 5 subsitue player in each team
-                        who can subsitue their place with main player whenever required.</p>
-                </div>
-                <div class="procedures">
-                    <h2>Scoring</h2>
-                    <p>To score the ball must go into your opponent’s goal. The whole ball needs to be over the line
-                        for it to be a legitimate goal. The goal itself consists of a frame measuring 8 feet high
-                        and 8 yards wide.</p>
-                </div>
-                <div class="procedures">
-                    <h2>Winning</h2>
-                    <p>To win you have to score more goals than that of your opponents. If the scores are level
-                        after 90 minutes then the game will end as a draw apart from in cup games where the game can
-                        go to extra time and even a penalty shootout to decide the winner.</p>
-                </div>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    </div>
-
-
-
-    <footer class="footer">
+    <!-- <footer class="footer">
         <p>
             &copy;
             All Rights Reserved

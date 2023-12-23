@@ -9,16 +9,21 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function addTextToTextarea() {
-    // Get the textarea element
     var textarea = document.getElementById('grammartext');
-
-    // Add your desired text
-    // var newText = " E -> E + T | T
-    //  		T -> T * F | F
-    //  		F -> ( E ) | id"
     textarea.value = "";
     var newText = "E -> E + T | T \nT -> T * F | F \nF -> ( E ) | id"
-
-    // Append the text to the textarea
     textarea.value += newText;
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Toggle visibility of augmented grammar, parsing table, and follow table on form submission
+    document.querySelector('.formss').addEventListener('submit', function (event) {
+
+        document.querySelector('.augmentedgrammar').style.display = 'block';
+        document.querySelector('.first-follow').style.display = 'block';
+        document.querySelector('.parsingtable').style.display = 'block';
+
+        // Hide "How to" section
+        document.querySelector('.how-to').style.display = 'none';
+    });
+});

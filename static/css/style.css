@@ -13,7 +13,7 @@ html {
 
 nav {
     display: flex;
-    width: 100vw;
+    width: 100%;
     height: 56px;
     align-items: center;
     justify-content: space-around;
@@ -94,11 +94,11 @@ nav {
 .page {
     width: 90vw;
     margin: 0 auto;
-    position: relative;
+    /* position: relative; */
     padding-top: 60px;
 }
 
-.page .rules-section,
+/* .page .rules-section,
 .page .history-section,
 .page .procedures-section,
 .page .whois-section {
@@ -110,61 +110,15 @@ nav {
 .page .container {
     padding-top: 90px;
 }
-
+ */
 
 .home-section {
     display: flex;
     flex-direction: row;
-    gap:40px;
+    gap:60px;
+    justify-content:space-around;
+    width: 100%;
     /* padding-top: 90px; */
-}
-
-.home-section img {
-    height: 400px;
-    width: 500px;
-    margin-top: 15%;
-}
-
-.info {
-    margin: 30px;
-    margin-top: 50px;
-    background-color: beige;
-    border-radius: 50px;
-    padding: 30px;
-}
-
-.info h1 {
-    font-size: 40px;
-    color: #222;
-    line-height: 3.4rem;
-}
-
-.info h1 span {
-    color: rgb(241, 69, 69);
-}
-
-.info p {
-    margin-top: 30px;
-    margin-bottom: 30px;
-    line-height: 1.7rem;
-    /* letter-spacing: 1px; */
-}
-
-.info .btn {
-    display: inline-block;
-    text-decoration: none;
-    padding: 14px 40px;
-    font-size: 20px;
-    border-radius: 30px;
-    border-top-right-radius: 0px;
-    color: white;
-    background-color:
-        rgb(103, 222, 103);
-    transition: 0.3s;
-}
-
-.info .btn:hover {
-    border-top-right-radius: 30px;
 }
 
 .btn {
@@ -191,8 +145,18 @@ form{
     outline: none;
 }
 
+.formss{
+    width: 40%;
+}
+
+.how-to{
+    width: 60%;
+}
+
 #grammartext {
-    width: 500px;
+    /* width: 500px; */
+    width:100%;
+    /* width: 100%; */
     background-color: #FFF;
     color: #222;
     font-family: Courier, monospace;
@@ -212,33 +176,6 @@ form{
 }
 
 
-
-
-.page .container>h1 {
-    font-size: 40px;
-    margin-bottom: 30px;
-    position: relative;
-}
-
-.page .container>h1::before,
-.page .container>h1::after {
-    background-color: red;
-    content: "";
-    height: 4px;
-    left: 0;
-    position: absolute;
-    top: 100%;
-}
-
-.page .container>h1::before {
-    width: 50px;
-}
-
-.page .container>h1::after {
-    width: 25px;
-    margin-top: 10px;
-}
-
 .footer {
     text-align: center;
     height: 4rem;
@@ -257,77 +194,6 @@ form{
     font-size: 18px;
 }
 
-.rules-li li {
-    margin-bottom: 20px;
-    font-size: 20px;
-    padding-left: 20px;
-    /* line-height: 2rem; */
-    line-height: 2.5rem;
-}
-
-.rules-li {
-    margin-left: 60px;
-    margin-top: 50px;
-}
-
-.rules-li li span {
-    font-weight: bold;
-}
-
-.whois-container .card {
-    width: 30%;
-    margin-top: 30px;
-    background-color: rgb(255, 255, 255);
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    border-radius: 20px;
-    gap: 5px;
-
-    font-size: 17px;
-    box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.3);
-    align-items: center;
-}
-
-.whois-container .card h1 {
-    font-family: 'Gloria Hallelujah';
-    color: rgb(221, 133, 133);
-    font-size: 28px;
-}
-
-.whois-container {
-    display: flex;
-    flex-direction: row;
-    gap: 40px;
-}
-
-.whois-container .card p {
-    line-height: 2rem;
-}
-
-.procedure-container {
-    padding-top: 30px;
-    padding-left: 40px;
-}
-
-.procedure-container .procedures {
-    padding-bottom: 20px;
-    line-height: 2.5rem;
-    text-align: justify;
-}
-
-.procedure-container .procedures p {
-    font-size: 20px;
-}
-
-.card img {
-    height: 40%;
-    width: 70%;
-    padding: 10px;
-}
-
-
-
 table td{
     background-color: #FFF;
     color: #222;
@@ -339,6 +205,7 @@ table td{
     padding-left: 10px;
     padding-right: 10px;
   }
+
 
 table th{
     background-color: #FFF;
@@ -354,7 +221,7 @@ table th{
     letter-spacing: 1px;
   }
 
-table{
+table{  
     border-collapse: collapse;
 }
 
@@ -367,16 +234,54 @@ table{
     letter-spacing: 1.5px;
 }
 
-.parsingtable{
+/* .parsingtable{
     width: 50%;
-}
+} */
 
-.parsingtable table{
+/* .parsingtable table{
     width: 100%;
-}
+} */
 
 .buttons{
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
+
+@media screen and (max-width: 800px) {
+    .home-section {
+        display: block;
+        width: 100%;
+    }
+    #grammartext{
+        width: 100%;
+    }
+    .formss{
+        width: 100%;
+    }
+    
+    .how-to{
+        width: 100%;
+    }
+}
+
+.how-to ol li{
+    background-color: #FFF;
+    color: #222;
+    font-family: Courier, monospace;
+    font-weight: normal;
+    font-size: 14px;
+    resize: none;
+    line-height: 40px;
+    padding-left: 10px;
+    margin-left: 50px;
+    margin-top: 10px;
+        /* padding-right: 10px; */
+}
+
+
+/* .augmentedgrammar,
+.first-follow,
+.parsingtable {
+    display: none;
+} */
