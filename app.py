@@ -401,11 +401,12 @@ def submit():
             result_list.append([nonterm, firsts, follows])
 
 
-        input_string = "id + id * id"
+        input_string = request.form.get('inputtoken')
         input_tokens = input_string.split()
         input_tokens.append('$')
         stack = [0]
         parsing_steps = []
+        parsing_steps.append((f"{' '.join(map(str, stack))}", ''.join(input_tokens), "", ""))
         i=0
 
         while True:
@@ -420,7 +421,7 @@ def submit():
                 stack.append(current_token)
                 stack.append(nextState)
                 i += 1
-                parsing_steps.append((f"{' '.join(map(str, stack))}", current_token, f"Shift{nextState}", ""))
+                parsing_steps.append((f"{' '.join(map(str, stack))}", ' '.join(input_tokens[i:]), f"Shift{nextState}", ""))
             elif 'R' in action:
             # Reduce
                 rule_num = int(action[1:])
@@ -430,8 +431,12 @@ def submit():
                     stack.pop()
                 goto_state = Table[stack[-1]][cols.index(rule[0])]
                 stack.append(rule[0])
+
+                # parsing_steps.append((f"{' '.join(map(str, stack))}", "", f"Reduce{rule_num}", f"Goto{goto_state}"))
+                parsing_steps.append((f"{' '.join(map(str, stack))}", ' '.join(input_tokens[i:]),f"Reduce{rule_num}", ""))
                 stack.append(int(goto_state))
-                parsing_steps.append((f"{' '.join(map(str, stack))}", "", f"Reduce{rule_num}", f"Goto{goto_state}"))
+                parsing_steps.append((f"{' '.join(map(str, stack))}",' '.join(input_tokens[i:]), f"Goto{goto_state}", ""))
+
             elif action == 'Accept':
                 parsing_steps.append((f"{' '.join(map(str, stack))}", "", "Accept", ""))
                 break
@@ -440,43 +445,6 @@ def submit():
                 parsing_steps.append((f"{' '.join(map(str, stack))}", "", "Error", ""))
                 break
 
-        # stack = [0]  # Initialize stack with the initial state
-        # parsing_steps = []  # List to store parsing steps
-
-        # i = 0
-    #     while True:
-    #         state = stack[-1]
-    #         current_token = input_tokens[i]
-
-    #         action = Table[state][cols.index(current_token)]
-
-    #         if 'S' in action:
-    #         # Shift
-    #             nextState = int(action[1:])
-    #             stack.append(current_token)
-    #             stack.append(nextState)
-    #             i += 1
-    #             parsing_steps.append((f"{' '.join(map(str, stack))}", current_token, f"Shift{nextState}"))
-    #         elif 'R' in action:
-    #         # Reduce
-    #             rule_num = int(action[1:])
-    #             rule = numbered[rule_num]
-    #             for _ in range(len(rule[1])):
-    #                 stack.pop()
-    #                 stack.pop()
-    #             goto_state = Table[stack[-1]][cols.index(rule[0])]
-    #             stack.append(rule[0])
-    #             stack.append(int(goto_state))
-    #             parsing_steps.append((f"{' '.join(map(str, stack))}", current_token, f"Reduce{rule_num} Goto{goto_state}"))
-    #         elif action == 'Accept':
-    #             parsing_steps.append((f"{' '.join(map(str, stack))}", current_token, "Accept"))
-    #             break
-    #         else:
-    #         # Error
-    #             parsing_steps.append((f"{' '.join(map(str, stack))}", current_token, "Error"))
-    #             break
-
-    # # Combine stack, input, and action into a single list for easier rendering in the template
         combined_steps = list(zip_longest(parsing_steps, input_tokens[i:], fillvalue=''))
 
        
@@ -490,5 +458,5 @@ def parse():
     result = augmentgrammar([user_input])
     return render_template('index.html', grammar=user_input, result=result)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+#     app.run(debug=True)

@@ -10,9 +10,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function addTextToTextarea() {
     var textarea = document.getElementById('grammartext');
+    var inputtoken = document.getElementById('inputtoken');
+    inputtoken.value = ""
     textarea.value = "";
     var newText = "E -> E + T | T \nT -> T * F | F \nF -> ( E ) | id"
+    var newtoken = "id + id * id"
     textarea.value += newText;
+    inputtoken.value += newtoken;
 }
 
 document.addEventListener("DOMContentLoaded", function () {

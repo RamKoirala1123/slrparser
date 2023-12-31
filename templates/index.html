@@ -33,10 +33,17 @@
                 <label for="grammartext" class="textcss">Grammar:</label>
                 <textarea placeholder="Enter the grammar." id="grammartext" name="grammartext"
                     rows="6">{{grammar_text}}</textarea>
+                <div class="tokenarea">
+                    <h3>Input(tokens)</h3>
+                    <textarea placeholder="Enter the token." id="inputtoken" name="inputtoken"
+                    rows="1">{{input_string}}</textarea>
+                </div>
+               
                 <div class="buttons">
                     <input type="submit" value="Submit" class="btn">
                     <button type="button" class="btn" onclick="addTextToTextarea()">Sample Grammar</button>
                 </div>
+                
                 <br>
             </form>
 
@@ -53,6 +60,10 @@
                     <li>Add the real grammar not the augmented one.</li>
                     <li>Use # for ε.</li>
                     <li>You can see the sample grammar by clicking on the sample grammar button.</li>
+                    <!-- <li>For the token : <ol type="i"    >
+                        <li>Enter the input tokens by sperating each token with space.</li>
+                    </ul></li> -->
+                    <li>Enter the input tokens by sperating each token with space.</li>
                 </ol>
             </div>
             {% endif %}
@@ -92,6 +103,7 @@
                     </tr>
                     {% endfor %}
                 </table>
+                </div>
                 {% endif %}
 
 
@@ -99,6 +111,7 @@
                 <div class="parsingtable">
                     <br>
                     <br>
+                    <h3 class="textcss">Parsing Table</h3>
                     <br>
                     {% set row_idx = 0 %}
                     <table border="1">
@@ -198,19 +211,19 @@
                     <table border="1">
                         <tr>
                             <th>Step</th>
-                            <th>State</th>
-                            <th>Reduce</th>
-                            <th>Goto</th>
+                            <th>Stack</th>
                             <th>Symbol</th>
+                            <th>Action</th>
                             <!-- <th>Next State</th> -->
                         </tr>
                         {% for step in parsing_steps %}
                         <tr>
                             <td>{{ loop.index }}</td>
                             <td>{{ step[0][0] }}</td>
-                            <td>{{ step[0][2] }}</td>
-                            <td>{{ step[0][3] }}</td>
                             <td>{{ step[0][1] }}</td>
+                            <td>{{ step[0][2] }}</td>
+                            <!-- <td>{{ step[0][3] }}</td> -->
+                            
                             <!-- <td>{{ step[1] }}</td> -->
                         </tr>
                         {% endfor %}
