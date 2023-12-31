@@ -1,3 +1,4 @@
+from itertools import zip_longest
 from flask import Flask, render_template, request
 import copy
 
@@ -213,7 +214,7 @@ def follow(nt):
 
 
 def createParseTable(statesDict, stateMap, T, NT):
-	global separatedRulesList, diction, Table
+	global separatedRulesList, diction, Table, cols, numbered
 	rows = list(statesDict.keys())
 	cols = T+['$']+NT
 	Table = []
@@ -370,7 +371,7 @@ def submit():
         grammar_list = [line.strip() for line in grammar_text.split('\n') if line.strip()]
 
         augmentedgrammar = augmentgrammar(grammar_list)
-        global term_userdef, nonterm_userdef, start_symbol, separatedRulesList, statesDict, stateMap,stateCount,diction,rules,Table
+        global term_userdef, nonterm_userdef, start_symbol, separatedRulesList, statesDict, stateMap,stateCount,diction,rules,Table,cols,numbered
         term_userdef, nonterm_userdef = extract_symbols(grammar_list)
         print('the is', term_userdef,nonterm_userdef)
         rules = grammar_list
@@ -400,16 +401,86 @@ def submit():
             result_list.append([nonterm, firsts, follows])
 
 
-        # data = [
-        # {"non_terminal": "E'", "first": "{(,id}", "follow": "{$}"},
-        # {"non_terminal": "E", "first": "{(a,id}", "follow": "{$,a}"},
-        # {"non_terminal": "E'", "first": "{(+,id,a,b}", "follow": "{+,-,$}"},
-        # {"non_terminal": "E'", "first": "{(+,id,a,b}", "follow": "{+,-,$}"}
-        # ]
-        # rules = grammar_list
-        # print('the anss is',result_list)
+        input_string = "id + id * id"
+        input_tokens = input_string.split()
+        input_tokens.append('$')
+        stack = [0]
+        parsing_steps = []
+        i=0
+
+        while True:
+            state = stack[-1]
+            current_token = input_tokens[i]
+
+            action = Table[state][cols.index(current_token)]
+
+            if 'S' in action:
+            # Shift
+                nextState = int(action[1:])
+                stack.append(current_token)
+                stack.append(nextState)
+                i += 1
+                parsing_steps.append((f"{' '.join(map(str, stack))}", current_token, f"Shift{nextState}", ""))
+            elif 'R' in action:
+            # Reduce
+                rule_num = int(action[1:])
+                rule = numbered[rule_num]
+                for _ in range(len(rule[1])):
+                    stack.pop()
+                    stack.pop()
+                goto_state = Table[stack[-1]][cols.index(rule[0])]
+                stack.append(rule[0])
+                stack.append(int(goto_state))
+                parsing_steps.append((f"{' '.join(map(str, stack))}", "", f"Reduce{rule_num}", f"Goto{goto_state}"))
+            elif action == 'Accept':
+                parsing_steps.append((f"{' '.join(map(str, stack))}", "", "Accept", ""))
+                break
+            else:
+            # Error
+                parsing_steps.append((f"{' '.join(map(str, stack))}", "", "Error", ""))
+                break
+
+        # stack = [0]  # Initialize stack with the initial state
+        # parsing_steps = []  # List to store parsing steps
+
+        # i = 0
+    #     while True:
+    #         state = stack[-1]
+    #         current_token = input_tokens[i]
+
+    #         action = Table[state][cols.index(current_token)]
+
+    #         if 'S' in action:
+    #         # Shift
+    #             nextState = int(action[1:])
+    #             stack.append(current_token)
+    #             stack.append(nextState)
+    #             i += 1
+    #             parsing_steps.append((f"{' '.join(map(str, stack))}", current_token, f"Shift{nextState}"))
+    #         elif 'R' in action:
+    #         # Reduce
+    #             rule_num = int(action[1:])
+    #             rule = numbered[rule_num]
+    #             for _ in range(len(rule[1])):
+    #                 stack.pop()
+    #                 stack.pop()
+    #             goto_state = Table[stack[-1]][cols.index(rule[0])]
+    #             stack.append(rule[0])
+    #             stack.append(int(goto_state))
+    #             parsing_steps.append((f"{' '.join(map(str, stack))}", current_token, f"Reduce{rule_num} Goto{goto_state}"))
+    #         elif action == 'Accept':
+    #             parsing_steps.append((f"{' '.join(map(str, stack))}", current_token, "Accept"))
+    #             break
+    #         else:
+    #         # Error
+    #             parsing_steps.append((f"{' '.join(map(str, stack))}", current_token, "Error"))
+    #             break
+
+    # # Combine stack, input, and action into a single list for easier rendering in the template
+        combined_steps = list(zip_longest(parsing_steps, input_tokens[i:], fillvalue=''))
+
        
-        return render_template('index.html',augmentedgrammar = augmentedgrammar, grammar_text = grammar_text, data=result_list, terminal = term_userdef, nonterminal = nonterm_userdef, table =Table)
+        return render_template('index.html',augmentedgrammar = augmentedgrammar, grammar_text = grammar_text, data=result_list, terminal = term_userdef, nonterminal = nonterm_userdef, table =Table, input_string = input_string, input_tokens = input_tokens, parsing_steps=combined_steps)
 
 @app.route('/parse', methods=['POST'])
 def parse():
@@ -419,5 +490,5 @@ def parse():
     result = augmentgrammar([user_input])
     return render_template('index.html', grammar=user_input, result=result)
 
-# if __name__ == '__main__':
-#     app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)

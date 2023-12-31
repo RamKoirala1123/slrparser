@@ -133,8 +133,90 @@
                 </div>
                 {% endif %}
 
+                <!-- Add this section to display parsing steps -->
+                <!-- {% if parsing_steps %}
+                <div class="parsing-steps">
+                    <br>
+                    <br>
+                    <h3 class="textcss">Parsing Steps</h3>
+                    <br>
+                    <table border="1">
+                        <tr>
+                            <th>Step</th>
+                            <th>State</th>
+                            <th>Action</th>
+                            <th>Symbol</th>
+                            <th>Next State</th>
+                        </tr>
+                        {% for step in parsing_steps %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ step[0] }}</td>
+                            <td>{{ step[1] }}</td>
+                            <td>{{ step[2] }}</td>
+                            <td>{{ step[3] if step[1] != 'Accept' else '' }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                {% endif %}  -->
+                <!-- important -->
+                <!-- Add this section to display parsing stack -->
+                <!-- {% if parsing_steps %}
+                <div class="parsing-stack">
+                    <br>
+                    <br>
+                    <h3 class="textcss">Parsing Stack</h3>
+                    <br>
+                    <table border="1">
+                        <tr>
+                            <th>Step</th>
+                            <th>State</th>
+                            <th>Action</th>
+                            <th>Symbol</th>
+                            <th>Next State</th>
+                        </tr>
+                        {% for step in parsing_steps %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ step[0][0] }}</td>
+                            <td>{{ step[0][2] }}</td>
+                            <td>{{ step[0][1] }}</td>
+                            <td>{{ step[1] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                {% endif %} -->
 
-
+                {% if parsing_steps %}
+                <div class="parsing-stack">
+                    <br>
+                    <br>
+                    <h3 class="textcss">Parsing Stack</h3>
+                    <br>
+                    <table border="1">
+                        <tr>
+                            <th>Step</th>
+                            <th>State</th>
+                            <th>Reduce</th>
+                            <th>Goto</th>
+                            <th>Symbol</th>
+                            <!-- <th>Next State</th> -->
+                        </tr>
+                        {% for step in parsing_steps %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ step[0][0] }}</td>
+                            <td>{{ step[0][2] }}</td>
+                            <td>{{ step[0][3] }}</td>
+                            <td>{{ step[0][1] }}</td>
+                            <!-- <td>{{ step[1] }}</td> -->
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                {% endif %}
         </section>
     </div>
 
