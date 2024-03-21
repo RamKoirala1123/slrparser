@@ -280,20 +280,6 @@ def createParseTable(statesDict, stateMap, T, NT):
 			.format('I'+str(j)))
 		j += 1
 
-# rules = ["S -> a X d | b Y d | a Y e | b X e",
-#          "X -> c",
-#          "Y -> c"
-#          ]
-# rules = ["E -> E + T | T",
-# 		"T -> T * F | F",
-# 		"F -> ( E ) | id"
-# 		]
-
-
-# nonterm_userdef = ['E', 'T', 'F']
-# term_userdef = ['id', '+', '*', '(', ')']
-# start_symbol = nonterm_userdef[0]
-
 def extract_symbols(rules):
     terminal_symbols = []
     non_terminal_symbols = []
@@ -319,42 +305,6 @@ def extract_symbols(rules):
 
 
     return terminal_symbols, non_terminal_symbols
-
-# term_userdef, nonterm_userdef = extract_symbols(rules)
-
-# print('the sym ', extract_symbols(rules), term_userdef,nonterm_userdef)
-# nonterm_userdef = ['S','X','Y']
-# term_userdef = ['a','b','c','d','e']
-# start_symbol = nonterm_userdef[0]	
-
-# separatedRulesList = augmentgrammar(rules)
-# start_symbol = separatedRulesList[0][0]
-
-# I0 = findClosure(0, start_symbol)
-
-# global nonterm_userdef, firsts
-    # print("\nFirst sets:\n")
-# statesDict = {}
-# stateMap = {}
-
-# statesDict[0] = I0
-# stateCount = 0
-
-# generateStates(statesDict)
-
-# diction = {}
-
-# createParseTable(statesDict, stateMap,
-# 				term_userdef,
-# 				nonterm_userdef)
-
-# result_list = []
-# for nonterm in nonterm_userdef:
-#     first_set = set(first(nonterm))
-#     firsts= '{' + ', '.join(map(str, first_set)) + '}'
-#     follow_set = set(follow(nonterm))
-#     follows = '{' + ', '.join(map(str, follow_set)) + '}'
-#     result_list.append([nonterm, firsts,follows])
 
 
 @app.route('/')

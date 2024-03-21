@@ -27,6 +27,7 @@
 
     .heading {
         display: flex;
+        flex-direction: column;
         align-items: center;
         gap: 10px;
         font-size: 20px;
@@ -40,6 +41,10 @@
         letter-spacing: 3px;
     }
 
+    .heading p{
+        font-size: 16px;
+        font-style: normal;
+    }
     .textcss {
         display: flex;
         align-items: center;
